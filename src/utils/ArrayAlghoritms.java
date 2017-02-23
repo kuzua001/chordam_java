@@ -19,4 +19,29 @@ public class ArrayAlghoritms {
 
         return result;
     }
+    public static Tuple<double[], int[]> severalTop(double[] orig, int numtop) {
+        double[] copy = Arrays.copyOf(orig,orig.length);
+        double max = Double.MIN_VALUE;
+
+        int maxIndex = 0;
+        int[] indices = new int[numtop];
+        double[] values = new double[numtop];
+        for(int j = 0; j<numtop;j++) {
+            for (int i = 0; i < copy.length; i++) {
+                if (copy[i] > max) {
+                    max = copy[i];
+                    maxIndex = i;
+                }
+            }
+            values[j] = max;
+            indices[j] = maxIndex;
+            for(int k = j-2;k<j+2;k++){
+                copy[k] = 0;
+            }
+
+        }
+        return new Tuple<double[], int[]>(values, indices);
+    }
+
+
 }

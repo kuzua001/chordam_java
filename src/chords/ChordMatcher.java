@@ -20,5 +20,9 @@ public class ChordMatcher {
         chords.add(new Chord("H7", new double[] {0}));
     }
 
-    //public match()
+    public String match(double[] pcm)
+    {
+
+        return "none";
+    }
 }
