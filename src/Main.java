@@ -47,10 +47,9 @@ public class Main {
         double w = 0;
         double[] real    = new double[chunkSize];
         double[] imag    = new double[chunkSize];
+        double amp = 0;
         double[] spectre = new double[chunkSize];
         double[] convRes = new double[matchingFreq.length];
-        double amp = 0;
-
         redirectOutput("output.txt");
 
         for (int i = 0; i < list.length - chunkSize; i += chunkSize) {
