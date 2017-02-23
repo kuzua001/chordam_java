@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_chord_am" default="compile.module.chord_am">
+  <dirname property="module.chord_am.basedir" file="${ant.file.module_chord_am}"/>
+  
+  <property name="module.jdk.home.chord_am" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.chord_am" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.chord_am" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.chord_am" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="chord_am.output.dir" value="${module.chord_am.basedir}/out/production/Chord Am"/>
+  <property name="chord_am.testoutput.dir" value="${module.chord_am.basedir}/out/test/Chord Am"/>
+  
+  <path id="chord_am.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="chord_am.module.production.classpath">
+    <path refid="${module.jdk.classpath.chord_am}"/>
+  </path>
+  
+  <path id="chord_am.runtime.production.module.classpath">
+    <pathelement location="${chord_am.output.dir}"/>
+  </path>
+  
+  <path id="chord_am.module.classpath">
+    <path refid="${module.jdk.classpath.chord_am}"/>
+    <pathelement location="${chord_am.output.dir}"/>
+  </path>
+  
+  <path id="chord_am.runtime.module.classpath">
+    <pathelement location="${chord_am.testoutput.dir}"/>
+    <pathelement location="${chord_am.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.chord_am">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.chord_am">
+    <patternset refid="excluded.from.module.chord_am"/>
+  </patternset>
+  
+  <path id="chord_am.module.sourcepath">
+    <dirset dir="${module.chord_am.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.chord_am" depends="compile.module.chord_am.production,compile.module.chord_am.tests" description="Compile module Chord Am"/>
+  
+  <target name="compile.module.chord_am.production" depends="register.custom.compilers" description="Compile module Chord Am; production classes">
+    <mkdir dir="${chord_am.output.dir}"/>
+    <javac2 destdir="${chord_am.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.chord_am}/javac">
+      <compilerarg line="${compiler.args.chord_am}"/>
+      <bootclasspath refid="chord_am.module.bootclasspath"/>
+      <classpath refid="chord_am.module.production.classpath"/>
+      <src refid="chord_am.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.chord_am"/>
+    </javac2>
+    
+    <copy todir="${chord_am.output.dir}">
+      <fileset dir="${module.chord_am.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.chord_am.tests" depends="register.custom.compilers,compile.module.chord_am.production" description="compile module Chord Am; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.chord_am" description="cleanup module">
+    <delete dir="${chord_am.output.dir}"/>
+    <delete dir="${chord_am.testoutput.dir}"/>
+  </target>
+</project>
