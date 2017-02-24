@@ -27,13 +27,17 @@ public class Chord {
                     curAmpl = ampl[i];
                     curFreq = freqArr[i];
                 }
+            }
 
-                if (minDelta < delta) {
-                    matchVal += curAmpl / minDelta;
-                }
+            if (minDelta < delta) {
+                matchVal += curAmpl / minDelta;
             }
         }
 
         return matchVal;
+    }
+
+    public String getName() {
+        return name;
     }
 }
